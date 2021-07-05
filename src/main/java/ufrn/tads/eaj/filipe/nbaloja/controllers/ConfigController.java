@@ -36,6 +36,7 @@ public class ConfigController {
                     "('camisa Kawhi ', 'Kawhi Leonard', '150.0', 'G', 'dia a dia'),\n" +
                     "('camisa kyrie ', 'Kyrie Irving', '150.0', 'G', 'dia a dia'),\n" +
                     "('camisa Chris ', 'Chris Paul', '150.0', 'G', 'dia a dia')");
+
             stmt.execute();
 
 

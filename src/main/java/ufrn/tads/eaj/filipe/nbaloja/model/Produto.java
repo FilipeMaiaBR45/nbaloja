@@ -55,4 +55,16 @@ public class Produto {
     public void setIndicadoPara(String indicadoPara) {
         this.indicadoPara = indicadoPara;
     }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "idProduto=" + idProduto +
+                ", nomeProduto='" + nomeProduto + '\'' +
+                ", timeJogador='" + timeJogador + '\'' +
+                ", preco=" + preco +
+                ", tamanho='" + tamanho + '\'' +
+                ", indicadoPara='" + indicadoPara + '\'' +
+                '}';
+    }
 }
