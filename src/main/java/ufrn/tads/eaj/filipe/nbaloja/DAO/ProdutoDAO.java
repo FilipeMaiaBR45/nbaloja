@@ -42,6 +42,7 @@ public class ProdutoDAO {
                 listaDeProdutos.add(p);
 
             }
+            connection.close();
 
         } catch (SQLException | URISyntaxException ex) {
             //response.getWriter().append("Connection Failed! Check output console");
@@ -67,6 +68,7 @@ public class ProdutoDAO {
 
             stmt.executeUpdate();
 
+            connection.close();
 
 
         } catch (SQLException | URISyntaxException ex) {
@@ -74,6 +76,48 @@ public class ProdutoDAO {
         }
 
 
+    }
+
+    public List<Produto> listarProdutosPorId(int id) {
+
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+
+        List<Produto> listaDeProdutos = new ArrayList<>();
+
+        try {
+            connection = ConectaBanco.getConnection();
+
+            stmt = connection.prepareStatement("select * from produto where id=?");
+
+            stmt.setInt(1, id);
+
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Produto p = new Produto();
+
+                p.setIdProduto(rs.getInt("id"));
+                p.setNomeProduto(rs.getString("nomeproduto"));
+                p.setTimeJogador(rs.getString("timejogador"));
+                p.setPreco(rs.getFloat("preco"));
+                p.setTamanho(rs.getString("tamanho"));
+                p.setIndicadoPara(rs.getString("indicadopara"));
+
+                listaDeProdutos.add(p);
+
+
+            }
+
+            connection.close();
+
+        } catch (SQLException | URISyntaxException ex) {
+            //response.getWriter().append("Connection Failed! Check output console");
+        }
+
+        return listaDeProdutos;
     }
 }
 

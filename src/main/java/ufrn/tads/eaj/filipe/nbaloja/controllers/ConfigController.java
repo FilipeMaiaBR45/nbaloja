@@ -20,17 +20,17 @@ import java.sql.SQLException;
 public class ConfigController {
 
     @GetMapping
-    public void createInitialTable(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
-        Connection con = null;
+    public void createInitialTable(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Connection connection = null;
         PreparedStatement stmt = null;
 
         try {
-            con = ConectaBanco.getConnection();
-            stmt = con.prepareStatement("create table produto (id SERIAL PRIMARY KEY, nomeProduto VARCHAR(55), timeJogador VARCHAR(100), preco FLOAT, tamanho varchar(40), indicadoPara varchar(45))");
+            connection = ConectaBanco.getConnection();
+            stmt = connection.prepareStatement("create table produto (id SERIAL PRIMARY KEY, nomeProduto VARCHAR(55), timeJogador VARCHAR(100), preco FLOAT, tamanho varchar(40), indicadoPara varchar(45))");
 
             stmt.execute();
 
-            stmt = con.prepareStatement("insert into produto (nomeproduto, timejogador, preco, tamanho, indicadopara) values\n" +
+            stmt = connection.prepareStatement("insert into produto (nomeproduto, timejogador, preco, tamanho, indicadopara) values\n" +
                     "('camisa lebron', 'Lebrom James', '150.0', 'G', 'dia a dia'),\n" +
                     "('camisa harden', 'James Harden', '150.0', 'G', 'dia a dia'),\n" +
                     "('camisa Kawhi ', 'Kawhi Leonard', '150.0', 'G', 'dia a dia'),\n" +
@@ -41,6 +41,8 @@ public class ConfigController {
 
 
             response.getWriter().println("ok");
+
+            connection.close();
 
 
         } catch (SQLException | URISyntaxException ex) {

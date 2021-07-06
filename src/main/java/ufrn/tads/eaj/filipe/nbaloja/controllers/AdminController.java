@@ -8,9 +8,13 @@ import ufrn.tads.eaj.filipe.nbaloja.DAO.ProdutoDAO;
 import ufrn.tads.eaj.filipe.nbaloja.model.Produto;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 
@@ -18,7 +22,7 @@ import java.io.IOException;
 public class AdminController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public void formCadastrar(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+    public void formCadastrar(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         response.getWriter().println("<body>");
         response.getWriter().println("<form method=\"post\" action=\"/cadastrar\">");
@@ -28,18 +32,18 @@ public class AdminController {
                 "tamanho: <input type=\"text\" name=\"tamanho\"> <br/>\n" +
                 "indicado para: <input type=\"text\" name=\"indicadopara\"> <br/>\n" +
                 "<button type=\"submit\">Cadastrar</button>");
-        response.getWriter().println("</fomr>");
+        response.getWriter().println("</form>");
         response.getWriter().println("</body>");
 
     }
 
     @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
     public void cadastrarProduto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-     String nomeProduto = request.getParameter("nomeproduto");
-     String timeJogador = request.getParameter("timejogador");
-     float preco = Float.parseFloat(request.getParameter("preco")) ;
-     String tamanho = request.getParameter("tamanho");
-     String indicadoPara = request.getParameter("indicadopara");
+        String nomeProduto = request.getParameter("nomeproduto");
+        String timeJogador = request.getParameter("timejogador");
+        float preco = Float.parseFloat(request.getParameter("preco"));
+        String tamanho = request.getParameter("tamanho");
+        String indicadoPara = request.getParameter("indicadopara");
 
         Produto p = new Produto();
         ProdutoDAO pdao = new ProdutoDAO();
@@ -52,16 +56,23 @@ public class AdminController {
 
         pdao.cadastrarProduto(p);
 
+        Date data = new Date();
+
+        var formatoData = new SimpleDateFormat("dd/MM/yyyy");
+
+        String dataAtual = formatoData.format(data);
+
+
+        Cookie c = new Cookie("visita", dataAtual);
+
+        c.setMaxAge(86400);
+
+        response.addCookie(c);
+
         response.sendRedirect("/admin");
 
 
-
-
-
     }
-
-
-
 
 
 }

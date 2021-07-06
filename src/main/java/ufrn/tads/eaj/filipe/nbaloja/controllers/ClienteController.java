@@ -39,7 +39,7 @@ public class ClienteController {
         response.getWriter().println("<th>indicado para</th>");
         response.getWriter().println("</tr>");
 
-        int i =0;
+        int i = 0;
 
         for (Produto p : pdao.listarProdutos()) {
             response.getWriter().println("<tr>");
@@ -48,26 +48,19 @@ public class ClienteController {
             response.getWriter().println("<th>" + p.getPreco() + " R$</th>");
             response.getWriter().println("<th>" + p.getTamanho() + "</th>");
             response.getWriter().println("<th>" + p.getIndicadoPara() + "</th>");
-            //response.getWriter().println("<th> <a href=\"/adicionarcarrinho?id=\" " + p.getIdProduto() + ">Adicionar ao carrinho</a></th>");
-
-            response.getWriter().println("<th> <a href=\"adicionarcarrinho?id=" + Integer.toString(pdao.listarProdutos().get(i).getIdProduto())  + " \" >Adicionar<a/></th>");
-            //request.getParameter("id");
-
-            //RequestDispatcher encaminhar = request.getRequestDispatcher("/adicionarcarrinho");
-           // encaminhar.forward(request, response);
 
 
+            response.getWriter().println("<th> <a href=\"adicionarcarrinho?id=" + pdao.listarProdutos().get(i).getIdProduto() + " \" >Adicionar<a/></th>");
 
-            response.getWriter().println("</tr>");
+
             i++;
+
+
         }
 
-        // for (int i = 0; i < pdao.listarProdutos().size(); i++ ){
-        //   response.getWriter().println("<a href=\"adicionarcarrinho?id=" + pdao.listarProdutos().get(i).getIdProduto() + " \" \"></a>");
-        // }
-
-
         response.getWriter().println("</table>");
+
+        response.getWriter().println("<a href=\"/vercarrinho\">Ver Carrinho</a>");
 
 
     }
