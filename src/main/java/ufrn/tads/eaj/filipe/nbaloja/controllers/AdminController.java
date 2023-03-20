@@ -68,8 +68,8 @@ public class AdminController {
         c.setMaxAge(86400);
 
         response.addCookie(c);
-
         response.sendRedirect("/admin");
+
 
 
     }
